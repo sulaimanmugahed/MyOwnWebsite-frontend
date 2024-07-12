@@ -1,0 +1,153 @@
+ 
+  // const { mutate } = useMutation({
+    //     mutationFn: async (data: FireBaseFile[]) => {
+    //         return await Promise.all(data.map(async image => await getImageBlob(image.url))!)
+    //     },
+    //     meta: {
+    //         errorMessage: "error fetch additionalImages"
+    //     }
+    // })
+
+    // useEffect(() => {
+    //     if (project?.additionalImages) {
+    //         console.log('mutate')
+    //         mutate(project.additionalImages,
+    //             {
+    //                 onSuccess: (data) => {
+    //                     const additionalImages: ExtFile[] = data.map((imageBlob, index) => {
+    //                         const fileName = project?.additionalImages[index].fullPath!
+    //                         return {
+    //                             id: index,
+    //                             file: new File([imageBlob], fileName, {
+    //                                 type: imageBlob.type,
+    //                             }),
+    //                         }
+    //                     })
+    //                     setAdditionalImages(additionalImages)
+    //                 }
+    //             })
+    //     }
+    // }, [project])
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <>
+                                    <Grid md={12} xs={12} item>
+
+                                        <Typography mb={2} color={'text.secondary'} variant="h6">Home image</Typography>
+                                        <AppImageUpload
+                                            maxSize={5000000}
+                                            containerSx={{
+                                                display: 'flex',
+                                                overflow: 'hidden',
+                                                flexDirection: 'column',
+                                                alignItems: 'center',
+                                                height: {
+                                                    xs: 200,
+                                                    md: 350,
+                                                    sm: 350
+                                                },
+                                                borderRadius: 2,
+
+                                            }}
+
+                                            imageSx={{
+                                                borderRadius: 2,
+                                                width: '100%',
+                                                objectFit: 'cover',
+                                            }}
+
+                                            value={homeImage}
+                                            onChange={onHomeImageChange} />
+                                    </Grid>
+
+                                    <Grid md={12} xs={12} item>
+                                        <Typography mb={2} color={'text.secondary'} variant="h6">Additional images</Typography>
+                                        <AppImageUpload
+                                            dataURLKey="additional_image"
+                                            maxNumber={10}
+                                            maxSize={5000000}
+                                            imageSx={{
+                                                height: {
+                                                    md: 100,
+                                                    xs: 150
+                                                },
+                                                width: {
+                                                    md: 160,
+                                                    xs: 280
+                                                },
+                                                borderRadius: 2,
+                                                objectFit: 'cover',
+                                            }}
+                                            containerSx={{
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                alignItems: 'center',
+                                                overflow: 'hidden',
+                                                borderRadius: 2,
+                                                height: {
+                                                    md: 350,
+                                                    xs: 420,
+                                                    sm: 420
+                                                },
+                                            }}
+
+                                            imageContainerSx={{
+                                                display: 'flex',
+                                                flexWrap: 'wrap',
+                                                alignItems: 'center',
+                                                gap: 1,
+                                                width: '100%',
+                                                overflowY: 'scroll',
+                                                justifyContent: 'center'
+                                            }} value={additionalImages} onChange={onAdditionalImagesChange} multiple />
+                                    </Grid>
+                                </>
+                            )
+                    }
+
+
+                </>
+
+
+
+
+
+
+
+
+
+                 <Dropzone
+                            value={additionalImages || project?.additionalImages?.map(image=> image.url)}
+                            onChange={onAdditionalImagesChange}
+                            header={additionalImages.length > 0}
+                            footer={false}
+                           
+                            headerConfig={{
+                                customHeader: (
+                                    <Box sx={{ position: 'relative' }}>
+                                        <IconButton sx={{ position: 'absolute', top: 0, right: 0 }} onClick={removeAllUploadedAdditionalImages}>
+                                            <CloseIcon />
+                                        </IconButton>
+                                    </Box>
+                                ),
+
+                            }}
+                        >
+                            {
+                                additionalImages.map(image => (
+                                    <FileMosaic {...image} onDelete={removeUploadedAdditionalImage} preview />
+                                ))
+                            }
+
+                        </Dropzone>

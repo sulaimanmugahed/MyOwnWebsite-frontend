@@ -1,0 +1,19 @@
+*::-webkit-scrollbar {
+    /* width: .6rem; */
+    width: 0;
+    border-radius: .5rem;
+}
+
+*::-webkit-scrollbar-thumb {
+    border-radius: .5rem;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background-color: gainsboro;
+}
+
+
+
+li.slick-active>button::before {
+    color: #8DA290 !important;
+}
